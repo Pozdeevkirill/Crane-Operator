@@ -21,7 +21,7 @@ public class HookController : MonoBehaviour
         {
             if (controller.bumper)
                 Debug.Log("Click");
-            if (controller.bumper && joint.connectedBody is null)
+            if (controller.bumper && joint.connectedBody is null && collisionGO.GetComponentInParent<Cargo>().canGrab)
             {
                 Debug.Log("Connected");
                 Connetct(collisionGO.GetComponentInParent<Rigidbody>());
@@ -36,7 +36,7 @@ public class HookController : MonoBehaviour
 
         if (debug)
         {
-            if (Input.GetKeyDown(KeyCode.E) && joint.connectedBody is null)
+            if (Input.GetKeyDown(KeyCode.E) && joint.connectedBody is null && collisionGO.GetComponent<Cargo>().canGrab)
             {
                 Connetct(collisionGO.GetComponentInParent<Rigidbody>());
             }
@@ -49,12 +49,14 @@ public class HookController : MonoBehaviour
 
     private void Connetct(Rigidbody objectToConnetct)
     {
+        objectToConnetct.GetComponent<Cargo>().isGrabbing = true;
         joint.connectedBody = objectToConnetct;
         joint.connectedAnchor = collisionGO.transform.localPosition;
     }
 
     private void Disconnect()
     {
+        joint.connectedBody.GetComponent<Cargo>().isGrabbing = false;
         joint.connectedBody = null;
         collisionGO = null;
     }

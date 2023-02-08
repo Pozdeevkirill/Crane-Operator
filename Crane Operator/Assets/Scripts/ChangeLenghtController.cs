@@ -27,7 +27,7 @@ public class ChangeLenghtController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float moveDirection = craneController.movement.z;
+        float moveDirection = craneController.movement.y;
 
 
         //MoveDirection < 0 - Движение в перед
@@ -36,14 +36,14 @@ public class ChangeLenghtController : MonoBehaviour
 
         if (moveDirection != 0)
         {
-            if (moveDirection < 0)
+            if (moveDirection > 0)
             {
-                objectMove.velocity = objectMove.transform.up * moveDirection * moveSpeed;
+                objectMove.velocity = objectMove.transform.up * -moveDirection * moveSpeed;
 
             }
-            else if (moveDirection > 0)
+            else if (moveDirection < 0)
             {
-                objectMove.velocity = objectMove.transform.up * moveDirection * moveSpeed;
+                objectMove.velocity = objectMove.transform.up * -moveDirection * moveSpeed;
             }
         }
         else

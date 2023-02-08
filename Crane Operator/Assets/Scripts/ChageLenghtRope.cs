@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Valve.VR;
 
 [RequireComponent(typeof(CraneController))]
 public class ChageLenghtRope : MonoBehaviour
@@ -24,8 +25,10 @@ public class ChageLenghtRope : MonoBehaviour
 
         if (debug)
         {
-            if(Input.GetKey(KeyCode.DownArrow))
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
                 direction = 1;
+            }
             else if(Input.GetKey(KeyCode.UpArrow))
                 direction = -1;
         }

@@ -21,7 +21,7 @@ public class CraneController : MonoBehaviour
     [SerializeField] private SteamVR_Action_Single gripAction = SteamVR_Input.GetAction<SteamVR_Action_Single>("Squeeze");
     [SerializeField] private SteamVR_Action_Boolean bumperAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("default", "bumper");
 
-    public Vector3 movement;
+    public Vector2 movement;
     public float grip;
     public bool bumper;
 
@@ -39,9 +39,8 @@ public class CraneController : MonoBehaviour
         if (interactable.attachedToHand)
         {
             hand = interactable.attachedToHand.handType;
-            Vector2 m = moveAction[hand].axis;
-            movement = new Vector3(m.x, 0, m.y);
-            Joystick.localPosition = movement * joyMove;
+            movement = moveAction[hand].axis;
+            Joystick.localPosition = new Vector3(movement.y, 0,-movement.x) * joyMove;
             grip = gripAction[hand].axis;
             bumper = bumperAction[hand].state;
 
