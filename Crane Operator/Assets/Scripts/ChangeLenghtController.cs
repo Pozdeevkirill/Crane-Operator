@@ -9,8 +9,6 @@ public class ChangeLenghtController : MonoBehaviour
     [SerializeField] private float moveSpeed = 1.5f; // Скорость движения standart = 1.5
     [SerializeField] private Transform endPostion;
     [SerializeField] private Transform startPosition;
-    [SerializeField] private float minDistance = 5f;
-    [SerializeField] private float lenght = 10;
 
     [SerializeField] private bool debug = false;
 

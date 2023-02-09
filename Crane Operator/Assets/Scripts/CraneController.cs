@@ -16,7 +16,6 @@ public class CraneController : MonoBehaviour
     [SerializeField] private Renderer gripBtn;
     [SerializeField] private Renderer bumperBtn;
  
-    [SerializeField] float rotateSpeed = 1;
     [SerializeField] private SteamVR_Action_Vector2 moveAction = SteamVR_Input.GetAction<SteamVR_Action_Vector2>("platformer", "Move");
     [SerializeField] private SteamVR_Action_Single gripAction = SteamVR_Input.GetAction<SteamVR_Action_Single>("Squeeze");
     [SerializeField] private SteamVR_Action_Boolean bumperAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("default", "bumper");
