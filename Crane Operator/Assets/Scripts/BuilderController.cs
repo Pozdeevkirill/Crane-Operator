@@ -34,8 +34,11 @@ public class BuilderController : MonoBehaviour
 
     [SerializeField] private bool isCargo;
     [SerializeField] private bool isHook;
+
+    [SerializeField]
+    private GameObject Firework;
     //Разгруженные грузы
-    private List<GameObject> cargoInArea = new();
+    public List<GameObject> cargoInArea = new();
 
     private int currentStep;
 
@@ -60,7 +63,7 @@ public class BuilderController : MonoBehaviour
         //Обновляем счетчик груза
         currentCargoCount++;
         //Запускаем проверку на готовность шага
-        StepReady();
+        StartCoroutine(StepReady());
     }
 
     //Запуск следующего шага
@@ -74,29 +77,31 @@ public class BuilderController : MonoBehaviour
     }
 
     //Метод окончания шага
-    private void StepReady()
+    private IEnumerator StepReady()
     {
         //Если шаг готов
         if (currentCargoCount == cargoInStepCount[currentStep])
         {
             //Очистка зоны разгрузки
             ClearUnloadArea();
-            //Обновление визуальной части строительства
-            UpdateVisual();
 
             StartCoroutine(Timer());
+
+            yield return new WaitForSeconds(2f);
+            //Обновление визуальной части строительства
+            UpdateVisual();
             //Если это последний шаг
             if (objectSteps.Count - 2 != currentStep)
             {
                 NextStep();
             }
             else
-                Debug.Log("Строительство окончено!");
+                EndGame();
         }
         //Иначе выходим из метода
         else
         {
-            return;
+            yield return null;
         }
     }
 
@@ -107,6 +112,7 @@ public class BuilderController : MonoBehaviour
         {
             Destroy(cargo);
         }
+        cargoInArea = new();
     }
 
     //Обновление визуальной части шага
@@ -124,6 +130,12 @@ public class BuilderController : MonoBehaviour
         yield return new WaitForSeconds(fadeDuration);
         fade.Fade(2, 0);
         fadeCamera.Fade(2, 0);
+    }
+
+    private void EndGame()
+    {
+        Debug.Log("Строительство окончено!");
+        Firework.SetActive(true);
     }
 
     private void OnTriggerEnter(Collider other)
